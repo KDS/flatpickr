@@ -1025,7 +1025,11 @@ function FlatpickrInstance(
       monthElement = self.monthsDropdownContainer;
     }
 
-    const yearInput = createNumberInput("cur-year", { tabindex: "-1" });
+    const yearInput = createNumberInput(
+      "cur-year",
+      { tabindex: "-1" },
+      self.config.yearSelectorType !== "static"
+    );
 
     const yearElement = yearInput.getElementsByTagName(
       "input"

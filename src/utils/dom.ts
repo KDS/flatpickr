@@ -40,15 +40,14 @@ export function findParent(
 
 export function createNumberInput(
   inputClassName: string,
-  opts?: Record<string, any>
+  opts?: Record<string, any>,
+  isInteractive?: boolean
 ) {
   const wrapper = createElement<HTMLDivElement>("div", "numInputWrapper"),
     numInput = createElement<HTMLInputElement>(
       "input",
       "numInput " + inputClassName
-    ),
-    arrowUp = createElement<HTMLSpanElement>("span", "arrowUp"),
-    arrowDown = createElement<HTMLSpanElement>("span", "arrowDown");
+    );
 
   if (navigator.userAgent.indexOf("MSIE 9.0") === -1) {
     numInput.type = "number";
@@ -61,8 +60,14 @@ export function createNumberInput(
     for (const key in opts) numInput.setAttribute(key, opts[key]);
 
   wrapper.appendChild(numInput);
-  wrapper.appendChild(arrowUp);
-  wrapper.appendChild(arrowDown);
+  if (isInteractive === false) {
+    numInput.disabled = true;
+  } else {
+    const arrowUp = createElement<HTMLSpanElement>("span", "arrowUp"),
+      arrowDown = createElement<HTMLSpanElement>("span", "arrowDown");
+    wrapper.appendChild(arrowUp);
+    wrapper.appendChild(arrowDown);
+  }
 
   return wrapper;
 }
